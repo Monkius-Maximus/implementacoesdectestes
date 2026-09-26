@@ -1,0 +1,17 @@
+{
+  "id": "eyes_01",
+  "decal_zones": [],
+  "tags": [],
+  "hides_slots": [],
+  "requires_tags": [
+    "body_humanoid"
+  ],
+  "regions": {
+    "base": {
+      "default": "#ffffff"
+    },
+    "r": {
+      "default": "#3b6ea5"
+    }
+  }
+}

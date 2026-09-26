@@ -1,0 +1,31 @@
+{
+  "pieces": {
+    "body": {
+      "id": "body_01",
+      "colors": { "base": "#e8b89a", "r": "#e0907e", "g": "#b5525b" },
+      "decals": []
+    },
+    "legs": {
+      "id": "pants_01",
+      "colors": { "base": "#3d3d46" },
+      "decals": []
+    },
+    "torso": {
+      "id": "shirt_02",
+      "colors": { "base": "#2255aa", "r": "#f2f2f2" },
+      "decals": [
+        { "image": "estrela", "zone": "peito", "position": [2, 1], "scale": 1, "rotation": 0, "flip_x": false }
+      ]
+    },
+    "eyes": {
+      "id": "eyes_01",
+      "colors": { "base": "#ffffff", "r": "#3b6ea5" },
+      "decals": []
+    },
+    "hair_front": {
+      "id": "hair_03",
+      "colors": { "base": "#6b4a2f", "r": "#3a2616", "b": "#c9a36b" },
+      "decals": []
+    }
+  }
+}

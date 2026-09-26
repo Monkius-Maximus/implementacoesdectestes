@@ -1,0 +1,20 @@
+{
+  "id": "body_01",
+  "decal_zones": [],
+  "tags": [
+    "body_humanoid"
+  ],
+  "hides_slots": [],
+  "requires_tags": [],
+  "regions": {
+    "base": {
+      "default": "#e8b89a"
+    },
+    "r": {
+      "default": "#e0907e"
+    },
+    "g": {
+      "default": "#b5525b"
+    }
+  }
+}

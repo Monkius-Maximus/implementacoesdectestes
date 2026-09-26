@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+
+# Godot 4: cache local do editor (os arquivos .import ficam versionados)
+.godot/

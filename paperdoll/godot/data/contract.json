@@ -1,0 +1,42 @@
+{
+  "canvas": {
+    "frame_width": 64,
+    "frame_height": 96,
+    "frames": 8
+  },
+  "shade": {
+    "max_saturation": 8,
+    "min_mean_value": 120
+  },
+  "mask": {
+    "sum_tolerance": 2
+  },
+  "categories": {
+    "skin": {
+      "mask_gradients": true,
+      "regions": { "base": "Tom de pele", "r": "Rubor", "g": "Lábios", "b": "Maquiagem" }
+    },
+    "hair": {
+      "mask_gradients": true,
+      "regions": { "base": "Cor base", "r": "Raiz", "g": "Mechas", "b": "Pontas" }
+    },
+    "clothing": {
+      "mask_gradients": false,
+      "regions": { "base": "Primária", "r": "Secundária", "g": "Detalhe", "b": "Estampa" }
+    },
+    "eyes": {
+      "mask_gradients": false,
+      "regions": { "base": "Esclera", "r": "Íris" }
+    }
+  },
+  "slots": {
+    "hair_back": { "category": "hair", "z_order": 0 },
+    "body":      { "category": "skin", "z_order": 10 },
+    "legs":      { "category": "clothing", "z_order": 20 },
+    "torso":     { "category": "clothing", "z_order": 30 },
+    "eyes":      { "category": "eyes", "z_order": 40 },
+    "hair_front":{ "category": "hair", "z_order": 50 },
+    "hat":       { "category": "clothing", "z_order": 60 }
+  },
+  "tags": ["body_humanoid", "hair_long", "hat_tall"]
+}

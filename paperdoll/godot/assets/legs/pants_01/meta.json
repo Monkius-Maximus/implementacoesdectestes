@@ -1,0 +1,14 @@
+{
+  "id": "pants_01",
+  "decal_zones": [],
+  "tags": [],
+  "hides_slots": [],
+  "requires_tags": [
+    "body_humanoid"
+  ],
+  "regions": {
+    "base": {
+      "default": "#3d3d46"
+    }
+  }
+}

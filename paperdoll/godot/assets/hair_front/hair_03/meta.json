@@ -1,0 +1,22 @@
+{
+  "id": "hair_03",
+  "decal_zones": [],
+  "tags": [
+    "hair_long"
+  ],
+  "hides_slots": [],
+  "requires_tags": [
+    "body_humanoid"
+  ],
+  "regions": {
+    "base": {
+      "default": "#6b4a2f"
+    },
+    "r": {
+      "default": "#3a2616"
+    },
+    "b": {
+      "default": "#c9a36b"
+    }
+  }
+}
