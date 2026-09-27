@@ -14,6 +14,7 @@ CharacterDescriptor ─▶ Resolver ─▶ BakePlan ─▶ DecalRasterizer ─�
 - **Pipeline de arte** (este README): como as peças são pintadas, exportadas e validadas.
 - **Compositor de bake** ([docs/compositor-de-bake.md](docs/compositor-de-bake.md)): como a receita do personagem vira uma textura.
 - **Editor do jogador** ([docs/editor-do-jogador.md](docs/editor-do-jogador.md)): a interface que monta a receita.
+- **Tutorial de uso** ([docs/tutorial-de-uso.md](docs/tutorial-de-uso.md)): passo a passo prático, do zero até substituir as peças de exemplo pela arte real.
 
 ## Estrutura
 
