@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace PaperDoll;
@@ -14,6 +15,19 @@ public sealed class PieceCatalog : IPieceMetaSource
 
     public bool HasPiece(string slot, string pieceId) =>
         Godot.FileAccess.FileExists(MetaPath(slot, pieceId));
+
+    /// <summary>Peças disponíveis num slot, em ordem alfabética. Slot sem pasta = nenhuma peça.</summary>
+    public IReadOnlyList<string> Pieces(string slot)
+    {
+        string dir = $"{AssetsRoot}/{slot}";
+        if (!DirAccess.DirExistsAbsolute(dir))
+            return [];
+        return ResourceLoader.ListDirectory(dir)
+            .Where(entry => entry.EndsWith('/'))
+            .Select(entry => entry.TrimEnd('/'))
+            .Order()
+            .ToList();
+    }
 
     public PieceMeta GetMeta(string slot, string pieceId)
     {

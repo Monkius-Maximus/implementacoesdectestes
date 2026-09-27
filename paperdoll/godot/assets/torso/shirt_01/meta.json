@@ -1,0 +1,61 @@
+{
+  "id": "shirt_01",
+  "decal_zones": [
+    {
+      "name": "peito",
+      "rect": [
+        26,
+        50,
+        12,
+        10
+      ],
+      "frame_offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "tags": [],
+  "hides_slots": [],
+  "requires_tags": [
+    "body_humanoid"
+  ],
+  "regions": {
+    "base": {
+      "default": "#f2f2f2"
+    },
+    "g": {
+      "default": "#c0392b"
+    }
+  }
+}

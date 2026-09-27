@@ -8,7 +8,6 @@ namespace PaperDoll;
 /// </summary>
 public sealed class DecalRasterizer
 {
-    private const string DecalsRoot = "res://decals";
     private readonly CanvasSpec _canvas;
     private readonly Texture2D _empty;
 
@@ -34,16 +33,7 @@ public sealed class DecalRasterizer
     {
         DecalPlacement placement = decal.Placement;
         int[] zone = decal.Zone.Rect;
-        Image image = LoadDecal(placement.Image);
-
-        if (placement.FlipX)
-            image.FlipX();
-        for (int turns = placement.Rotation / 90; turns > 0; turns--)
-            image.Rotate90(ClockDirection.Clockwise);
-        if (placement.Scale > 1)
-            image.Resize(image.GetWidth() * placement.Scale, image.GetHeight() * placement.Scale, Image.Interpolation.Nearest);
-
-        Vector2I size = image.GetSize();
+        Vector2I size = DecalLibrary.PlacedSize(placement);
         int x = placement.Position[0];
         int y = placement.Position[1];
         if (x + size.X > zone[2] || y + size.Y > zone[3])
@@ -53,6 +43,14 @@ public sealed class DecalRasterizer
                 $"não cabe na zona '{decal.Zone.Name}' ({zone[2]}x{zone[3]})"
             ]);
         }
+
+        Image image = DecalLibrary.LoadImage(placement.Image);
+        if (placement.FlipX)
+            image.FlipX();
+        for (int turns = placement.Rotation / 90; turns > 0; turns--)
+            image.Rotate90(ClockDirection.Clockwise);
+        if (placement.Scale > 1)
+            image.Resize(image.GetWidth() * placement.Scale, image.GetHeight() * placement.Scale, Image.Interpolation.Nearest);
 
         var source = new Rect2I(Vector2I.Zero, size);
         for (int frame = 0; frame < _canvas.Frames; frame++)
@@ -65,17 +63,5 @@ public sealed class DecalRasterizer
                 zone[1] + offset[1] + y);
             sheet.BlendRect(image, source, target);
         }
-    }
-
-    private static Image LoadDecal(string name)
-    {
-        string path = $"{DecalsRoot}/{name}.png";
-        Texture2D texture = GD.Load<Texture2D>(path)
-            ?? throw new System.IO.FileNotFoundException($"decalque não encontrado: {path}");
-        Image image = texture.GetImage();
-        if (image.IsCompressed())
-            throw new System.InvalidOperationException($"{path}: importe como Lossless (compressão VRAM não é suportada)");
-        image.Convert(Image.Format.Rgba8);
-        return image;
     }
 }

@@ -138,6 +138,39 @@ def main() -> None:
     write_piece(args.godot, "legs", "pants_01", shade_from(s, pants, 225), mask_from(shape=shape),
                 {"regions": {"base": {"default": "#3d3d46"}}, "requires_tags": ["body_humanoid"]})
 
+    # Variações para o editor ter o que trocar em cada slot.
+    short_hair = s.ellipse(32, 19, 15, 10) & s.rect(0, 0, 64, 25)
+    write_piece(args.godot, "hair_front", "hair_01", shade_from(s, short_hair, 230),
+                mask_from(r=np.where(short_hair, root_w, 0).astype(np.uint8), shape=shape),
+                {"regions": {"base": {"default": "#1f1b18"}, "r": {"default": "#0d0b0a"}},
+                 "requires_tags": ["body_humanoid"]})
+
+    long_back = s.rect(18, 18, 47, 60)
+    back_t = np.clip(((s.yy - s.dy()) - 18) / 42, 0, 1)
+    write_piece(args.godot, "hair_back", "hair_back_01", shade_from(s, long_back, 215),
+                mask_from(r=np.where(long_back, (np.clip(1 - 2 * back_t, 0, 1) * 255).round(), 0).astype(np.uint8),
+                          b=np.where(long_back, (np.clip(2 * back_t - 1, 0, 1) * 255).round(), 0).astype(np.uint8),
+                          shape=shape),
+                {"regions": {"base": {"default": "#6b4a2f"}, "r": {"default": "#3a2616"},
+                             "b": {"default": "#c9a36b"}},
+                 "tags": ["hair_long"], "requires_tags": ["body_humanoid"]})
+
+    tank = s.rect(22, 44, 42, 71)
+    stripes = tank & ((s.yy - s.dy()) % 5 == 0)
+    write_piece(args.godot, "torso", "shirt_01", shade_from(s, tank, 235),
+                mask_from(g=full(stripes), shape=shape),
+                {"regions": {"base": {"default": "#f2f2f2"}, "g": {"default": "#c0392b"}},
+                 "decal_zones": [{"name": "peito", "rect": [26, 50, 12, 10],
+                                  "frame_offsets": [[0, s.bob(f)] for f in range(frames)]}],
+                 "requires_tags": ["body_humanoid"]})
+
+    beanie = s.ellipse(32, 18, 16, 11) & s.rect(0, 0, 64, 22)
+    brim = beanie & s.rect(0, 18, 64, 22)
+    write_piece(args.godot, "hat", "beanie_01", shade_from(s, beanie, 230),
+                mask_from(r=full(brim), shape=shape),
+                {"regions": {"base": {"default": "#d35400"}, "r": {"default": "#a04000"}},
+                 "tags": ["hat_tall"], "requires_tags": ["body_humanoid"]})
+
     # Decalque colorido 7x7 (estrela simples). Decalques carregam cor própria e recebem o sombreamento da peça.
     star = np.zeros((7, 7, 4), np.uint8)
     pattern = ["...#...", "..###..", "#######", ".#####.", "..###..", ".##.##.", "##...##"]

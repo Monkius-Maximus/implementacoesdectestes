@@ -1,0 +1,17 @@
+{
+  "id": "hair_01",
+  "decal_zones": [],
+  "tags": [],
+  "hides_slots": [],
+  "requires_tags": [
+    "body_humanoid"
+  ],
+  "regions": {
+    "base": {
+      "default": "#1f1b18"
+    },
+    "r": {
+      "default": "#0d0b0a"
+    }
+  }
+}

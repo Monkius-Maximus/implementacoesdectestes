@@ -19,6 +19,7 @@ Só a última etapa usa a GPU. O editor do jogador, os presets e o gerador de NP
 | `src/Resolver.cs` | Descriptor → `BakePlan`. C# puro, sem renderização. |
 | `src/PieceCatalog.cs` | Carrega meta e texturas de `res://assets/<slot>/<peça>/`. |
 | `src/DecalRasterizer.cs` | Monta a camada de decalques de cada peça na CPU. |
+| `src/DecalLibrary.cs` | Decalques disponíveis, imagem e tamanho depois de rotação e escala. |
 | `src/BakeCompositor.cs` | Renderiza o plano num `SubViewport` e devolve a textura. |
 | `shaders/paperdoll_piece.gdshader` | Máscara → tinta, decalque no albedo, luz do shade. |
 
@@ -124,11 +125,14 @@ var sprite = new Sprite2D
 - JSON com campo faltando ou campo desconhecido é recusado;
 - um print da cena demo.
 
+O mesmo teste também exercita o editor do jogador (ver [editor-do-jogador.md](editor-do-jogador.md)).
+
 Pela linha de comando: `godot --path . res://test/smoke_test.tscn`. O código de saída é 0 quando tudo passa e 1 na primeira falha.
 
 ## Próximos passos
 
-- **Editor do jogador:** UI sobre o descriptor (slots, rodas de cor por região com os nomes do contrato, posicionamento de decalques dentro da zona), pedindo um bake a cada mudança. Quando chegarem vários pedidos para o mesmo personagem (ex.: arrastando um slider), só o mais recente deve ser assado.
 - **Estampas (padrões tileáveis)** no canal B das roupas.
 - **Gradient map** para pele e cabelo: o shade indexa uma rampa de cor em vez de multiplicar. A arte não muda, só o shader.
 - **Cache por hash do descriptor** e bake de vários personagens por frame.
+
+O editor do jogador está em [editor-do-jogador.md](editor-do-jogador.md).

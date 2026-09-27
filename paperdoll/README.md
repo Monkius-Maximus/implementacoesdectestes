@@ -13,6 +13,7 @@ CharacterDescriptor ─▶ Resolver ─▶ BakePlan ─▶ DecalRasterizer ─�
 
 - **Pipeline de arte** (este README): como as peças são pintadas, exportadas e validadas.
 - **Compositor de bake** ([docs/compositor-de-bake.md](docs/compositor-de-bake.md)): como a receita do personagem vira uma textura.
+- **Editor do jogador** ([docs/editor-do-jogador.md](docs/editor-do-jogador.md)): a interface que monta a receita.
 
 ## Estrutura
 
@@ -31,14 +32,16 @@ paperdoll/
     ├── decals/<nome>.png         decalques (estampas, tatuagens)
     ├── shaders/paperdoll_piece.gdshader
     ├── src/                      compositor de bake (C#)
+    ├── editor/                   editor do jogador (cena principal)
     ├── demo/                     cena demo + personagem de exemplo
-    └── test/                     teste de fumaça do compositor
+    └── test/                     teste de fumaça do compositor e do editor
 ```
 
 ## Início rápido
 
-1. Abra `godot/` no Godot 4.7 .NET e rode o projeto (F5). A cena demo assa o personagem de exemplo e 4 variações de cor. **Espaço** ou **Enter** gera novas variações.
-2. Para rodar o teste de fumaça, abra `test/smoke_test.tscn` e rode a cena (F6). O resultado sai no console, e as imagens vão para `user://smoke_test/`.
+1. Abra `godot/` no Godot 4.7 .NET e rode o projeto (F5). Isso abre o **editor do jogador**: troque peças, pinte regiões, coloque decalques, salve e carregue personagens.
+2. A cena `demo/demo.tscn` (F6) assa o personagem de exemplo e 4 variações de cor. **Espaço** ou **Enter** gera novas variações.
+3. Para rodar o teste de fumaça, abra `test/smoke_test.tscn` e rode a cena (F6). O resultado sai no console, e as imagens vão para `user://smoke_test/`.
 
 Para regenerar as peças de exemplo e validar:
 

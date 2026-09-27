@@ -12,7 +12,7 @@ public partial class Demo : Node2D
     private const string ContractPath = "res://data/contract.json";
     private const string DescriptorPath = "res://demo/sample_character.json";
     private const int Variations = 4;
-    private const int DisplayScale = 4;
+    private const int DisplayScale = 3;
     private const int Margin = 24;
     private const double FrameSeconds = 0.18;
     private static readonly string[] RecoloredSlots = ["hair_front", "torso", "legs"];
