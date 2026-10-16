@@ -10,6 +10,9 @@ public interface IPieceMetaSource
 {
     bool HasPiece(string slot, string pieceId);
     PieceMeta GetMeta(string slot, string pieceId);
+
+    /// <summary>Peças disponíveis num slot, em ordem alfabética.</summary>
+    IReadOnlyList<string> Pieces(string slot);
 }
 
 /// <summary>Uma camada pronta para o bake: peça visível, com cores e decalques já conferidos.</summary>
@@ -36,7 +39,7 @@ public sealed class DescriptorException(IReadOnlyList<string> errors)
 /// </summary>
 public static class Resolver
 {
-    private static readonly Regex HexColor = new("^#[0-9a-fA-F]{6}$");
+    internal static readonly Regex HexColor = new("^#[0-9a-fA-F]{6}$");
     private static readonly int[] Rotations = [0, 90, 180, 270];
 
     public static BakePlan Resolve(CharacterDescriptor descriptor, Contract contract, IPieceMetaSource metas)

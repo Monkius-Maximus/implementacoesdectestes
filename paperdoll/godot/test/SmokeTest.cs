@@ -39,6 +39,7 @@ public partial class SmokeTest : Node
             await RejectsDecalLargerThanZone();
             RejectsIncompleteOrUnknownJson();
             EditsDescriptor();
+            await GeneratesNpcs();
             await CapturesDemoScene();
             await DrivesEditorScene();
 
@@ -170,6 +171,61 @@ public partial class SmokeTest : Node
         Expect(!DescriptorEdits.Unequip(withDecal, "hair_front").Pieces.ContainsKey("hair_front"), "unequip");
     }
 
+    private async Task GeneratesNpcs()
+    {
+        NpcRules rules = NpcRules.Load("res://data/npc_rules.json", _contract);
+
+        // Regras quebradas de várias formas geram a lista completa de problemas.
+        var broken = new NpcRules(
+            new() { ["skin"] = [new() { ["base"] = "azul" }], ["hair"] = [], ["fantasma"] = [] },
+            [new("body", 1, "skin"), new("body", 1, "skin"), new("hat", 2, "hat"), new("nada", 1, "x"),
+             new("eyes", 1, "g"), new("legs", 1, "g")]);
+        string brokenErrors = string.Join("\n", broken.Errors(_contract));
+        foreach (string expected in new[] { "regiões devem ser exatamente", "cor inválida 'azul'", "nenhum conjunto de cores",
+                                           "'fantasma' não existe", "mais de uma vez", "chance deve estar", "'nada' não existe",
+                                           "não há paleta para a categoria 'eyes'", "mistura categorias" })
+            Expect(brokenErrors.Contains(expected), $"regras quebradas: faltou o erro '{expected}' em:\n{brokenErrors}");
+
+        // Mesma semente, mesmo personagem. Todo NPC resolve sem erro e o cabelo da frente e o de trás combinam.
+        var serialized = new HashSet<string>();
+        int withHairBack = 0, withHat = 0;
+        for (int seed = 0; seed < 200; seed++)
+        {
+            CharacterDescriptor npc = NpcGenerator.Generate(rules, _contract, _catalog, new Random(seed));
+            Expect(PaperDollJson.Serialize(npc) == PaperDollJson.Serialize(NpcGenerator.Generate(rules, _contract, _catalog, new Random(seed))),
+                   $"semente {seed} não é determinística");
+            Resolver.Resolve(npc, _contract, _catalog);
+            serialized.Add(PaperDollJson.Serialize(npc));
+            foreach (string slot in new[] { "body", "legs", "torso", "eyes", "hair_front" })
+                Expect(npc.Pieces.ContainsKey(slot), $"semente {seed}: slot obrigatório '{slot}' vazio");
+            if (npc.Pieces.TryGetValue("hair_back", out EquippedPiece? back))
+            {
+                withHairBack++;
+                Expect(back.Colors["base"] == npc.Pieces["hair_front"].Colors["base"], $"semente {seed}: cabelos com cores diferentes");
+            }
+            if (npc.Pieces.ContainsKey("hat"))
+                withHat++;
+        }
+        Expect(serialized.Count > 150, $"NPCs pouco variados: {serialized.Count} distintos em 200");
+        Expect(withHairBack is > 50 and < 110, $"hair_back (chance 0.4) apareceu {withHairBack}/200");
+        Expect(withHat is > 30 and < 90, $"hat (chance 0.3) apareceu {withHat}/200");
+
+        // Montagem com 18 NPCs assados, para conferir a olho.
+        const int count = 18, columns = 9;
+        int frameWidth = _contract.Canvas.FrameWidth, frameHeight = _contract.Canvas.FrameHeight;
+        var montage = Image.CreateEmpty(frameWidth * columns, frameHeight * (count / columns), false, Image.Format.Rgba8);
+        montage.Fill(new Color(0.18f, 0.2f, 0.24f));
+        for (int index = 0; index < count; index++)
+        {
+            BakePlan plan = Resolver.Resolve(NpcGenerator.Generate(rules, _contract, _catalog, new Random(index)), _contract, _catalog);
+            // O bake sai pré-multiplicado; com alpha binário (pixel art) BlendRect dá o mesmo resultado.
+            Image baked = (await _compositor.Bake(plan)).GetImage();
+            montage.BlendRect(baked, new Rect2I(0, 0, frameWidth, frameHeight),
+                new Vector2I(index % columns * frameWidth, index / columns * frameHeight));
+        }
+        montage.SavePng($"{OutputDir}/npcs.png");
+    }
+
     private async Task DrivesEditorScene()
     {
         var editor = (CharacterEditor)GD.Load<PackedScene>("res://editor/character_editor.tscn").Instantiate();
@@ -221,8 +277,13 @@ public partial class SmokeTest : Node
         Press(editor, "Carregar");
         Expect(editor.Status == "carregado: smoke_test", $"carregar: {editor.Status}");
         Expect(PaperDollJson.Serialize(editor.Descriptor) == saved, "o descriptor carregado deveria ser igual ao salvo");
+
+        // NPC aleatório pela barra de ferramentas: troca o personagem e informa a semente.
+        Press(editor, "NPC aleatório");
+        Expect(editor.Status.StartsWith("NPC gerado — semente "), $"npc aleatório: {editor.Status}");
+        Expect(PaperDollJson.Serialize(editor.Descriptor) != saved, "o NPC deveria ser diferente do personagem anterior");
         await WaitFrames(5);
-        Expect(editor.Status == "carregado: smoke_test", $"o bake não deveria gerar erro: {editor.Status}");
+        Expect(editor.Status.StartsWith("NPC gerado — semente "), $"o bake não deveria gerar erro: {editor.Status}");
 
         RemoveChild(editor);
         editor.QueueFree();

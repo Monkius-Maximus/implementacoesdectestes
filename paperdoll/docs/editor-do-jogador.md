@@ -15,6 +15,7 @@ UI (CharacterEditor) ──▶ DescriptorEdits ──▶ CharacterDescriptor ─
 - **Decalques** nas peças que têm zonas: imagem, zona, posição, escala inteira, rotação em 90° e espelhamento. A posição máxima é recalculada a partir do tamanho da zona e do decalque já rotacionado e escalado, então não dá para arrastar para fora.
 - **Salvar e carregar** em `user://characters/<nome>.json`. O arquivo é o próprio descriptor.
 - **Cores aleatórias** em todas as regiões, para testar combinações extremas.
+- **NPC aleatório:** troca o personagem inteiro por um sorteado das paletas curadas ([gerador-de-npcs.md](gerador-de-npcs.md)).
 
 ## Regras
 
@@ -50,5 +51,4 @@ O print acima foi gerado por esse teste.
 
 - Desfazer/refazer (pilha de descriptors).
 - Nomes de exibição para slots e peças no contrato e no meta (hoje a UI mostra os ids).
-- Paletas curadas por região (tons de pele, cores naturais de cabelo) ao lado da roda livre.
-- Gerador de NPCs: peça aleatória por slot + cores sorteadas das paletas curadas, respeitando `requires_tags`.
+- Mostrar as paletas curadas (`data/npc_rules.json`) no editor, ao lado da roda livre.

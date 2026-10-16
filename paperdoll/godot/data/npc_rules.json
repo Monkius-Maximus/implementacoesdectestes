@@ -1,0 +1,49 @@
+{
+  "palettes": {
+    "skin": [
+      { "base": "#f5d5c0", "r": "#e8a598", "g": "#c46a6a", "b": "#b07a9a" },
+      { "base": "#e8b89a", "r": "#e0907e", "g": "#b5525b", "b": "#9c6b8f" },
+      { "base": "#d49a6a", "r": "#c9786a", "g": "#a24a50", "b": "#8a5a7a" },
+      { "base": "#b57a50", "r": "#a85d4c", "g": "#8a3d45", "b": "#6f4a69" },
+      { "base": "#8d5a3b", "r": "#7a4034", "g": "#6e2f38", "b": "#5a3a5a" },
+      { "base": "#5e3a28", "r": "#54302a", "g": "#5a2a30", "b": "#4a3050" }
+    ],
+    "hair": [
+      { "base": "#1f1b18", "r": "#0d0b0a", "g": "#3a3330", "b": "#2c2622" },
+      { "base": "#4a3222", "r": "#2a1a10", "g": "#7a5638", "b": "#5e4230" },
+      { "base": "#6b4a2f", "r": "#3a2616", "g": "#8a6540", "b": "#c9a36b" },
+      { "base": "#c9a45c", "r": "#8a6a34", "g": "#e6cf8a", "b": "#f0dca0" },
+      { "base": "#a8481f", "r": "#6e2a10", "g": "#d0702f", "b": "#e08a45" },
+      { "base": "#9a9a9a", "r": "#5f5f5f", "g": "#c4c4c4", "b": "#dcdcdc" }
+    ],
+    "clothing": [
+      { "base": "#1f3a68", "r": "#e8e8e8", "g": "#c0392b", "b": "#f0c040" },
+      { "base": "#b03a2e", "r": "#f2f2f2", "g": "#5a1a14", "b": "#f0c040" },
+      { "base": "#2e7d4f", "r": "#e6e0c8", "g": "#1a4a2e", "b": "#d8b24a" },
+      { "base": "#c9962b", "r": "#3a2a14", "g": "#7a5a14", "b": "#f2f2f2" },
+      { "base": "#5a5f66", "r": "#d0d3d6", "g": "#2e3136", "b": "#c0392b" },
+      { "base": "#ececec", "r": "#3d5a80", "g": "#9aa4ae", "b": "#c0392b" },
+      { "base": "#6a3d8f", "r": "#e8dcf0", "g": "#3a1f52", "b": "#e0c050" },
+      { "base": "#b5603c", "r": "#f0e0c8", "g": "#6e3419", "b": "#2e4a6e" },
+      { "base": "#2b2b30", "r": "#d8d8d8", "g": "#111114", "b": "#c9962b" },
+      { "base": "#4a86c5", "r": "#f2f2f2", "g": "#24507e", "b": "#f0c040" }
+    ],
+    "eyes": [
+      { "base": "#ffffff", "r": "#3b6ea5" },
+      { "base": "#ffffff", "r": "#4f8a4a" },
+      { "base": "#ffffff", "r": "#6b4423" },
+      { "base": "#ffffff", "r": "#3a2414" },
+      { "base": "#ffffff", "r": "#7a8794" },
+      { "base": "#ffffff", "r": "#8a6a2a" }
+    ]
+  },
+  "slots": [
+    { "slot": "body",       "chance": 1.0, "color_group": "skin" },
+    { "slot": "legs",       "chance": 1.0, "color_group": "legs" },
+    { "slot": "torso",      "chance": 1.0, "color_group": "torso" },
+    { "slot": "eyes",       "chance": 1.0, "color_group": "eyes" },
+    { "slot": "hair_front", "chance": 1.0, "color_group": "hair" },
+    { "slot": "hair_back",  "chance": 0.4, "color_group": "hair" },
+    { "slot": "hat",        "chance": 0.3, "color_group": "hat" }
+  ]
+}

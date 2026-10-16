@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -14,6 +15,7 @@ using PaperDoll;
 public partial class CharacterEditor : Control
 {
     private const string ContractPath = "res://data/contract.json";
+    private const string NpcRulesPath = "res://data/npc_rules.json";
     private const string StartDescriptorPath = "res://demo/sample_character.json";
     private const string SaveDir = "user://characters";
     private const string NoPiece = "— nenhuma —";
@@ -25,6 +27,7 @@ public partial class CharacterEditor : Control
 
     private readonly Dictionary<string, VBoxContainer> _slotSections = new();
     private Contract _contract = null!;
+    private NpcRules _npcRules = null!;
     private PieceCatalog _catalog = null!;
     private BakeCompositor _compositor = null!;
     private CharacterDescriptor _descriptor = null!;
@@ -48,6 +51,7 @@ public partial class CharacterEditor : Control
     public override void _Ready()
     {
         _contract = PaperDollJson.Load<Contract>(ContractPath);
+        _npcRules = NpcRules.Load(NpcRulesPath, _contract);
         _catalog = new PieceCatalog();
         _compositor = BakeCompositor.Create(_contract, _catalog);
         AddChild(_compositor);
@@ -200,6 +204,7 @@ public partial class CharacterEditor : Control
         bar.AddChild(_savedList);
         bar.AddChild(MakeButton("Carregar", LoadSelected));
         bar.AddChild(MakeButton("Cores aleatórias", RandomizeColors));
+        bar.AddChild(MakeButton("NPC aleatório", GenerateNpc));
         return bar;
     }
 
@@ -396,6 +401,13 @@ public partial class CharacterEditor : Control
         {
             ShowStatus($"{name}.json inválido: {e.Message}", isError: true);
         }
+    }
+
+    private void GenerateNpc()
+    {
+        int seed = Random.Shared.Next();
+        Open(NpcGenerator.Generate(_npcRules, _contract, _catalog, new Random(seed)));
+        ShowStatus($"NPC gerado — semente {seed}", isError: false);
     }
 
     private void RandomizeColors()

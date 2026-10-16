@@ -16,7 +16,7 @@ public sealed class PieceCatalog : IPieceMetaSource
     public bool HasPiece(string slot, string pieceId) =>
         Godot.FileAccess.FileExists(MetaPath(slot, pieceId));
 
-    /// <summary>Peças disponíveis num slot, em ordem alfabética. Slot sem pasta = nenhuma peça.</summary>
+    /// <summary>Slot sem pasta = nenhuma peça.</summary>
     public IReadOnlyList<string> Pieces(string slot)
     {
         string dir = $"{AssetsRoot}/{slot}";

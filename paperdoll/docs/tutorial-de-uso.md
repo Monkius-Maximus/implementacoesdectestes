@@ -31,6 +31,8 @@ Tudo que você muda na esquerda reflete no preview da direita assim que o bake t
 4. Para remover uma peça, volte no seletor do slot e escolha `— nenhuma —`. Para remover um decalque, use o botão de remover na própria linha dele.
 5. **Cores aleatórias** sorteia uma cor nova para toda região de toda peça equipada — bom para ver rápido se as combinações extremas (branco, preto, saturado) ficam legíveis.
 
+Para ver como ficam personagens variados, clique em **NPC aleatório**: o editor troca tudo por um personagem sorteado e mostra a semente na linha de status. As cores e as chances de cada slot vêm de `data/npc_rules.json` ([gerador-de-npcs.md](gerador-de-npcs.md)).
+
 ## 4. Salvar e carregar
 
 - Digite um nome no campo da barra de ferramentas (só `a-z`, `0-9`, `_` e `-`) e clique **Salvar**. O personagem vai para `user://characters/<nome>.json` — no seu computador isso fica em `%APPDATA%/Godot/app_userdata/PaperDoll/characters/` (Windows) ou `~/.local/share/godot/app_userdata/PaperDoll/characters/` (Linux/macOS).

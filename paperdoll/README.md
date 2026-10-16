@@ -14,6 +14,7 @@ CharacterDescriptor ─▶ Resolver ─▶ BakePlan ─▶ DecalRasterizer ─�
 - **Pipeline de arte** (este README): como as peças são pintadas, exportadas e validadas.
 - **Compositor de bake** ([docs/compositor-de-bake.md](docs/compositor-de-bake.md)): como a receita do personagem vira uma textura.
 - **Editor do jogador** ([docs/editor-do-jogador.md](docs/editor-do-jogador.md)): a interface que monta a receita.
+- **Gerador de NPCs** ([docs/gerador-de-npcs.md](docs/gerador-de-npcs.md)): sorteia personagens completos a partir de paletas curadas.
 - **Tutorial de uso** ([docs/tutorial-de-uso.md](docs/tutorial-de-uso.md)): passo a passo prático, do zero até substituir as peças de exemplo pela arte real.
 
 ## Estrutura
@@ -29,6 +30,7 @@ paperdoll/
 │   └── compositor-de-bake.md
 └── godot/                        projeto Godot 4.7 (.NET)
     ├── data/contract.json        o contrato: fonte única de verdade (Python e C# leem o mesmo arquivo)
+    ├── data/npc_rules.json       paletas curadas e regras de sorteio do gerador de NPCs
     ├── assets/<slot>/<peça>/     peças exportadas
     ├── decals/<nome>.png         decalques (estampas, tatuagens)
     ├── shaders/paperdoll_piece.gdshader
